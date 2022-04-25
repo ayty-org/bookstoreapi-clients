@@ -2,9 +2,12 @@ package br.com.bookstoreapi.clients;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+
 
 @SpringBootTest
-class BookstoreClientsApplicationTests {
+@TestPropertySource(locations = "classpath:application-test.yml")
+public class BookstoreClientsApplicationTests {
 
 	@Test
 	void contextLoads() {

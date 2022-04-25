@@ -1,4 +1,4 @@
-package com.bookstoreapi.bookstoreapi.client;
+package br.com.bookstoreapi.clients.client;
 
 
 import lombok.*;

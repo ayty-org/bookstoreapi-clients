@@ -1,4 +1,4 @@
-package com.bookstoreapi.bookstoreapi.exception;
+package br.com.bookstoreapi.clients.exception;
 
 import java.util.UUID;
 

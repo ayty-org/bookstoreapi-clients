@@ -1,8 +1,8 @@
-package com.bookstoreapi.bookstoreapi.client.service;
+package br.com.bookstoreapi.clients.client.service;
 
-import com.bookstoreapi.bookstoreapi.builders.ClientBuilder;
-import com.bookstoreapi.bookstoreapi.client.Client;
-import com.bookstoreapi.bookstoreapi.client.ClientRepository;
+import br.com.bookstoreapi.clients.builders.ClientBuilder;
+import br.com.bookstoreapi.clients.client.Client;
+import br.com.bookstoreapi.clients.client.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

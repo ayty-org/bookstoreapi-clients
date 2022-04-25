@@ -1,6 +1,7 @@
-package com.bookstoreapi.bookstoreapi.client.service;
+package br.com.bookstoreapi.clients.client.service;
 
-import com.bookstoreapi.bookstoreapi.client.Client;
+
+import br.com.bookstoreapi.clients.client.Client;
 
 @FunctionalInterface
 public interface SaveClientService {

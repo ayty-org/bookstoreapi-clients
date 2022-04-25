@@ -1,7 +1,7 @@
-package com.bookstoreapi.bookstoreapi.client;
+package br.com.bookstoreapi.clients.client;
 
-import com.bookstoreapi.bookstoreapi.BookstoreApiJacksonApplicationTests;
-import com.bookstoreapi.bookstoreapi.builders.ClientBuilder;
+import br.com.bookstoreapi.clients.BookstoreClientsApplicationTests;
+import br.com.bookstoreapi.clients.builders.ClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith(SpringExtension.class)
-public class ClientControllerTest extends BookstoreApiJacksonApplicationTests {
+public class ClientControllerTest extends BookstoreClientsApplicationTests {
 
     private MockMvc mockMvc;
     @Autowired

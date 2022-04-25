@@ -1,8 +1,8 @@
-package com.bookstoreapi.bookstoreapi.client.service;
+package br.com.bookstoreapi.clients.client.service;
 
-import com.bookstoreapi.bookstoreapi.client.Client;
-import com.bookstoreapi.bookstoreapi.client.ClientRepository;
-import com.bookstoreapi.bookstoreapi.exception.EntityNotFoundException;
+import br.com.bookstoreapi.clients.client.Client;
+import br.com.bookstoreapi.clients.client.ClientRepository;
+import br.com.bookstoreapi.clients.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class GetClientServiceImpl implements GetClientService{
     private final ClientRepository clientRepository;
 
     @Override
-    public Client getByUuid(UUID uuid) throws EntityNotFoundException{
+    public Client getByUuid(UUID uuid) throws EntityNotFoundException {
         return clientRepository.findByUuid(uuid)
                 .orElseThrow(()-> new EntityNotFoundException(uuid, Client.class.getSimpleName()));
     }
