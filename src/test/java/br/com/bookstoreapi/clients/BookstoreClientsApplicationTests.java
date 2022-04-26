@@ -6,7 +6,7 @@ import org.springframework.test.context.TestPropertySource;
 
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.yml")
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class BookstoreClientsApplicationTests {
 
 	@Test

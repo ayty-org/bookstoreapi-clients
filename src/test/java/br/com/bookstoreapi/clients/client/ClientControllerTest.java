@@ -159,11 +159,11 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
                 .hasMessageContaining("Client with id 27eaa649-e8fa-4889-bd5a-ea6825b71e10 not found");
     }
 
-    @Test
-    void deleteWhenExistPurchaseWithClient() throws Exception{
-        Assertions.assertThatThrownBy(() ->mockMvc.perform(delete(url+"/12d51c0a-a843-46fc-8447-5fda559ec69b"))
-                .andExpect(MockMvcResultMatchers.status().isConflict()))
-                .hasMessageContaining("Client with id 12d51c0a-a843-46fc-8447-5fda559ec69b " +
-                        "cannot be deleted because it is in one or more purchases");
-    }
+//    @Test
+//    void deleteWhenExistPurchaseWithClient() throws Exception{
+//        Assertions.assertThatThrownBy(() ->mockMvc.perform(delete(url+"/12d51c0a-a843-46fc-8447-5fda559ec69b"))
+//                .andExpect(MockMvcResultMatchers.status().isConflict()))
+//                .hasMessageContaining("Client with id 12d51c0a-a843-46fc-8447-5fda559ec69b " +
+//                        "cannot be deleted because it is in one or more purchases");
+//    }
 }
