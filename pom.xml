@@ -8,11 +8,11 @@
 		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bookstoreapi</groupId>
-	<artifactId>bookstoreapi</artifactId>
+	<groupId>br.com.bookstoreapi</groupId>
+	<artifactId>clients</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bookstoreapi</name>
-	<description>Projeto de capacitação; parte 1: criando o monólito</description>
+	<name>bookstoreapi-clients</name>
+	<description>Projeto de capacitação; parte 2: quebrando o monólito</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
