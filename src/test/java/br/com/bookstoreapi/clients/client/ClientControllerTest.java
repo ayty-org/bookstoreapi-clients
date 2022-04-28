@@ -2,11 +2,14 @@ package br.com.bookstoreapi.clients.client;
 
 import br.com.bookstoreapi.clients.BookstoreClientsApplicationTests;
 import br.com.bookstoreapi.clients.builders.ClientBuilder;
+import br.com.bookstoreapi.clients.client.service.*;
+import br.com.bookstoreapi.clients.purchase.PurchaseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -15,6 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.core.Is.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,15 +29,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ClientControllerTest extends BookstoreClientsApplicationTests {
 
     private MockMvc mockMvc;
-    @Autowired
+
     private ClientController clientController;
+
+    @Autowired
+    private GetAllClientService getAllClientService;
+    @Autowired
+    private GetClientService getClientService;
+    @Autowired
+    private SaveClientService saveClientService;
+    @Autowired
+    private UpdateClientService updateClientService;
+
+    @Autowired
+    private ClientRepository clientRepository;
+    @Mock
+    private PurchaseRepository purchaseRepository;
 
     private final String url = "/clients";
     ObjectMapper mapper = new ObjectMapper();
 
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
+        DeleteClientService deleteClientService = new DeleteClientServiceImpl(clientRepository, purchaseRepository);
+        this.clientController = new ClientController(getAllClientService, getClientService, saveClientService
+                , updateClientService, deleteClientService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
     }
 
@@ -64,7 +86,7 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     }
 
     @Test
-    void getAllTest() throws Exception{
+    void getAllTest() throws Exception {
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].uuid", is("12d51c0a-a843-46fc-8447-5fda559ec69b")))
@@ -82,8 +104,8 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     }
 
     @Test
-    void getOneTest() throws Exception{
-        mockMvc.perform(get(url+"/12d51c0a-a843-46fc-8447-5fda559ec69b"))
+    void getOneTest() throws Exception {
+        mockMvc.perform(get(url + "/12d51c0a-a843-46fc-8447-5fda559ec69b"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid", is("12d51c0a-a843-46fc-8447-5fda559ec69b")))
                 .andExpect(jsonPath("$.name", is("Jenipapo")))
@@ -102,16 +124,16 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     }
 
     @Test
-    void putWhenIdExistTest() throws Exception{
+    void putWhenIdExistTest() throws Exception {
         ClientRecieveDTO c1 = ClientBuilder.clientJenipapoRecieve();
         c1.setName("Newmar");
         c1.setAge(44);
         c1.setEmail("newmar@gmail.com");
 
         String json1 = mapper.writeValueAsString(c1);
-        mockMvc.perform(put(url+"/27eaa649-e8fa-4889-bd5a-ea6825b71e61")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json1))
+        mockMvc.perform(put(url + "/27eaa649-e8fa-4889-bd5a-ea6825b71e61")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.uuid", is("27eaa649-e8fa-4889-bd5a-ea6825b71e61")))
                 .andExpect(jsonPath("$.name", is("Newmar")))
@@ -122,48 +144,50 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     }
 
     @Test
-    void putWhenIdDontExistTest() throws Exception{
+    void putWhenIdDontExistTest() throws Exception {
         Client c1 = ClientBuilder.clientJenipapo1();
         String json1 = mapper.writeValueAsString(ClientDTO.from(c1));
-        Assertions.assertThatThrownBy(() ->mockMvc.perform(put(
-                url+"/df670f4b-5d4d-4f70-ae78-f2ddc9fa1f19")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json1))
-                .andExpect(MockMvcResultMatchers.status().isNotFound()))
+        Assertions.assertThatThrownBy(() -> mockMvc.perform(put(
+                                url + "/df670f4b-5d4d-4f70-ae78-f2ddc9fa1f19")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(json1))
+                        .andExpect(MockMvcResultMatchers.status().isNotFound()))
                 .hasMessageContaining("Client with id df670f4b-5d4d-4f70-ae78-f2ddc9fa1f19 not found");
     }
 
     @Test
-    void putWhenClientIsInvalid() throws Exception{
+    void putWhenClientIsInvalid() throws Exception {
         String json1 = mapper.writeValueAsString(ClientBuilder.clientInvalid());
 
-        mockMvc.perform(put(url+"/12d51c0a-a843-46fc-8447-5fda559ec69b")
+        mockMvc.perform(put(url + "/12d51c0a-a843-46fc-8447-5fda559ec69b")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json1))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void deleteWhenIdExist() throws Exception{
-        mockMvc.perform(delete(url+"/27eaa649-e8fa-4889-bd5a-ea6825b71e6b"))
+    void deleteWhenIdExist() throws Exception {
+        mockMvc.perform(delete(url + "/27eaa649-e8fa-4889-bd5a-ea6825b71e6b"))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
-        Assertions.assertThatThrownBy(() -> mockMvc.perform(get(url+"/27eaa649-e8fa-4889-bd5a-ea6825b71e6b"))
+        Assertions.assertThatThrownBy(() -> mockMvc.perform(get(url + "/27eaa649-e8fa-4889-bd5a-ea6825b71e6b"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()));
     }
 
     @Test
-    void deleteWhenIdDontExist() throws Exception{
-        Assertions.assertThatThrownBy(() ->mockMvc.perform(delete(url+"/27eaa649-e8fa-4889-bd5a-ea6825b71e10"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound()))
+    void deleteWhenIdDontExist() {
+        Assertions.assertThatThrownBy(() -> mockMvc.perform(delete(url + "/27eaa649-e8fa-4889-bd5a-ea6825b71e10"))
+                        .andExpect(MockMvcResultMatchers.status().isNotFound()))
                 .hasMessageContaining("Client with id 27eaa649-e8fa-4889-bd5a-ea6825b71e10 not found");
     }
 
-//    @Test
-//    void deleteWhenExistPurchaseWithClient() throws Exception{
-//        Assertions.assertThatThrownBy(() ->mockMvc.perform(delete(url+"/12d51c0a-a843-46fc-8447-5fda559ec69b"))
-//                .andExpect(MockMvcResultMatchers.status().isConflict()))
-//                .hasMessageContaining("Client with id 12d51c0a-a843-46fc-8447-5fda559ec69b " +
-//                        "cannot be deleted because it is in one or more purchases");
-//    }
+    @Test
+    void deleteWhenExistPurchaseWithClient() {
+        when(purchaseRepository.existsByClientUuid(any())).thenReturn(true);
+
+        Assertions.assertThatThrownBy(() -> mockMvc.perform(delete(url + "/12d51c0a-a843-46fc-8447-5fda559ec69b"))
+                        .andExpect(MockMvcResultMatchers.status().isConflict()))
+                .hasMessageContaining("Client with id 12d51c0a-a843-46fc-8447-5fda559ec69b " +
+                        "cannot be deleted because it is in one or more purchases");
+    }
 }
