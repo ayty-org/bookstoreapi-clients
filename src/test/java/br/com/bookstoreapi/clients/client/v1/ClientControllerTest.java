@@ -51,7 +51,7 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     @Mock
     private PurchaseRepository purchaseRepository;
 
-    private final String url = "/clients";
+    private final String url = "/v1/clients";
     ObjectMapper mapper = new ObjectMapper();
 
 
@@ -65,8 +65,6 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
 
     @Test
     void saveTest() throws Exception {
-        Client c1 = ClientBuilder.clientJenipapo1();
-
         String json1 = mapper.writeValueAsString(ClientBuilder.clientJenipapoRecieve());
 
         this.mockMvc.perform(post(this.url)
@@ -99,7 +97,7 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
                 .andExpect(jsonPath("$[0].age", is(19)))
                 .andExpect(jsonPath("$[0].email", is("jenipapo@coldmail.com")))
                 .andExpect(jsonPath("$[0].telephone", is("83996438691")))
-                .andExpect(jsonPath("[0].gender", is("Male")))
+                .andExpect(jsonPath("$[0].gender", is("Male")))
                 .andExpect(jsonPath("$[1].uuid", is("df670f4b-5d4d-4f70-ae78-f2ddc9fa1f14")))
                 .andExpect(jsonPath("$[1].name", is("Ana")))
                 .andExpect(jsonPath("$[1].age", is(46)))
