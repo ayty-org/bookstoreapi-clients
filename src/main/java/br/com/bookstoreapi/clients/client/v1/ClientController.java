@@ -1,5 +1,7 @@
-package br.com.bookstoreapi.clients.client;
+package br.com.bookstoreapi.clients.client.v1;
 
+import br.com.bookstoreapi.clients.client.ClientDTO;
+import br.com.bookstoreapi.clients.client.ClientRecieveDTO;
 import br.com.bookstoreapi.clients.client.service.*;
 import br.com.bookstoreapi.clients.exception.DeleteException;
 import br.com.bookstoreapi.clients.exception.EntityNotFoundException;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-@RequestMapping("/clients")
+@RequestMapping("/v1/clients")
 @RequiredArgsConstructor
 @RestController
 public class ClientController {

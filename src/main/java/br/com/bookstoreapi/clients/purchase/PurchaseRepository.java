@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "purchases", url = "http://localhost:8080/purchases")
+@FeignClient("purchases")
 public interface PurchaseRepository {
 
     @GetMapping("/existByClient/{uuid}")
