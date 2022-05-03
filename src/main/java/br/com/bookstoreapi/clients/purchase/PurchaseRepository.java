@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient("purchases")
+@FeignClient("purchases-api")
 public interface PurchaseRepository {
 
-    @GetMapping("/existByClient/{uuid}")
+    @GetMapping("/v1/purchases/existByClient/{uuid}")
     boolean existsByClientUuid(@PathVariable UUID uuid);
 
 }

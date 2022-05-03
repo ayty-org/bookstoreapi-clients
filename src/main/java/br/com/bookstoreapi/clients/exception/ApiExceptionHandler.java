@@ -1,5 +1,6 @@
 package br.com.bookstoreapi.clients.exception;
 
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,4 +42,8 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid UUID on path");
     }
 
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<?> feignException(FeignException e){
+        return ResponseEntity.status(e.status()).body(e.getMessage());
+    }
 }
