@@ -6,6 +6,8 @@ import br.com.bookstoreapi.clients.client.service.*;
 import br.com.bookstoreapi.clients.exception.DeleteException;
 import br.com.bookstoreapi.clients.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +30,8 @@ public class ClientController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ClientDTO> list(){
-        return ClientDTO.fromAll(getAllClientService.findAll());
+    public List<ClientDTO> list(Pageable pageable){
+        return ClientDTO.fromAll(getAllClientService.findAll(pageable));
     }
 
     @GetMapping("/{clientId}")

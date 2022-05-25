@@ -101,7 +101,7 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
                 .andExpect(jsonPath("$[1].uuid", is("df670f4b-5d4d-4f70-ae78-f2ddc9fa1f14")))
                 .andExpect(jsonPath("$[1].name", is("Ana")))
                 .andExpect(jsonPath("$[1].age", is(46)))
-                .andExpect(jsonPath("[1].email", is("ana@coldmail.com")))
+                .andExpect(jsonPath("$[1].email", is("ana@coldmail.com")))
                 .andExpect(jsonPath("$[1].telephone", is("83996438691")))
                 .andExpect(jsonPath("$[1].gender", is("Female")));
     }

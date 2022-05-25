@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -31,11 +34,12 @@ public class GetAllClientServiceImplTest {
 
     @Test
     void findAllTest(){
-        when(clientRepository.findAll()).thenReturn(ClientBuilder.clientList());
-        List<Client> clients = getAllClientService.findAll();
+        Pageable page = PageRequest.of(0,3);
+        when(clientRepository.findAll(page)).thenReturn(new PageImpl(ClientBuilder.clientList()));
+        List<Client> clients = getAllClientService.findAll(page);
 
         assertThat(3, is(clients.size()));
-        verify(clientRepository, times(1)).findAll();
+        verify(clientRepository, times(1)).findAll(page);
 
         assertThat(clients.get(0).getId(), is(1L));
         assertThat(clients.get(0).getUuid().toString(), is("12d51c0a-a843-46fc-8447-5fda559ec69b"));

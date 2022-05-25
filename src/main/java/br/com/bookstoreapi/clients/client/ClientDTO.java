@@ -1,6 +1,8 @@
 package br.com.bookstoreapi.clients.client;
 
 import lombok.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -49,4 +51,12 @@ public class ClientDTO {
                 .map(ClientDTO::from)
                 .collect(Collectors.toList());
     }
+
+//    public static Page<ClientDTO> fromAll(Page<Client> clients) {
+//        List<ClientDTO> clientDTOS = clients.stream()
+//                .map(ClientDTO::from)
+//                .collect(Collectors.toList());
+//
+//        return new PageImpl<ClientDTO>(clientDTOS, clients.getPageable(), clients.getTotalElements());
+//    }
 }

@@ -3,6 +3,10 @@ package br.com.bookstoreapi.clients.client.service;
 import br.com.bookstoreapi.clients.client.Client;
 import br.com.bookstoreapi.clients.client.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +19,7 @@ public class GetAllClientServiceImpl implements GetAllClientService {
 
 
     @Override
-    public List<Client> findAll() {
-        return clientRepository.findAll();
+    public List<Client> findAll(Pageable pageable) {
+        return clientRepository.findAll(pageable).toList();
     }
 }
