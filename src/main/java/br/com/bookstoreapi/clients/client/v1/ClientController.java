@@ -27,11 +27,18 @@ public class ClientController {
     private final UpdateClientService putClientService;
     private final DeleteClientService deleteClientService;
 
+    private final TotalElementService totalElementService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ClientDTO> list(Pageable pageable){
         return ClientDTO.fromAll(getAllClientService.findAll(pageable));
+    }
+
+    @GetMapping("/elements/total")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer totalElements(){
+        return this.totalElementService.getTotalElement();
     }
 
     @GetMapping("/{clientId}")

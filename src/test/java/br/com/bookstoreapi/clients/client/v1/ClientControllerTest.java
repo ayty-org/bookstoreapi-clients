@@ -45,6 +45,9 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     private SaveClientService saveClientService;
     @Autowired
     private UpdateClientService updateClientService;
+    @Autowired
+    private TotalElementService totalElementService;
+
 
     @Autowired
     private ClientRepository clientRepository;
@@ -59,7 +62,7 @@ public class ClientControllerTest extends BookstoreClientsApplicationTests {
     void setUp() {
         DeleteClientService deleteClientService = new DeleteClientServiceImpl(clientRepository, purchaseRepository);
         this.clientController = new ClientController(getAllClientService, getClientService, saveClientService
-                , updateClientService, deleteClientService);
+                , updateClientService, deleteClientService, totalElementService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
     }
 
