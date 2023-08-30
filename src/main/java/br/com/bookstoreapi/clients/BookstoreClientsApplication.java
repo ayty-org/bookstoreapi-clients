@@ -28,6 +28,4 @@ public class BookstoreClientsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreClientsApplication.class, args);
 	}
-
-
 }
