@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class GetClientServiceImpl implements GetClientService{
 
     private final ClientRepository clientRepository;
@@ -20,5 +20,8 @@ public class GetClientServiceImpl implements GetClientService{
                 .orElseThrow(()-> new EntityNotFoundException(uuid, Client.class.getSimpleName()));
     }
 
-
+    @Override
+    public Boolean existByEmailAndPasswrd(String email, String password) throws EntityNotFoundException {
+        return clientRepository.existsByEmailAndPassword(email, password);
+    }
 }

@@ -7,7 +7,6 @@ import br.com.bookstoreapi.clients.client.ClientDTO;
 import br.com.bookstoreapi.clients.client.ClientRecieveDTO;
 import br.com.bookstoreapi.clients.client.ClientRepository;
 import br.com.bookstoreapi.clients.client.service.*;
-import br.com.bookstoreapi.clients.client.v1.ClientController;
 import br.com.bookstoreapi.clients.purchase.PurchaseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;

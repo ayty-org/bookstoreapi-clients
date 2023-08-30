@@ -5,8 +5,8 @@ import br.com.bookstoreapi.clients.exception.EntityNotFoundException;
 
 import java.util.UUID;
 
-@FunctionalInterface
 public interface GetClientService {
 
     Client getByUuid(UUID id) throws EntityNotFoundException;
+    Boolean existByEmailAndPasswrd(String email, String password) throws EntityNotFoundException;
 }
