@@ -22,7 +22,7 @@ public class BookstoreClientsApplication {
 	public FilterRegistrationBean<FilterJWT> filterJwt() {
 		FilterRegistrationBean<FilterJWT> filterRB = new FilterRegistrationBean<FilterJWT>();
 		filterRB.setFilter(new FilterJWT());
-		filterRB.addUrlPatterns("/v1/clients/*", "/auth/login");
+		filterRB.addUrlPatterns("/v1/clients/*");
 		return filterRB;
 	}
 	public static void main(String[] args) {
