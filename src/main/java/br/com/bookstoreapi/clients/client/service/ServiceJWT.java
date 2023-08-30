@@ -6,4 +6,6 @@ import br.com.bookstoreapi.clients.exception.EntityNotFoundException;
 
 public interface ServiceJWT {
     LoginResponseDTO auth(LoginRequestDTO client) throws EntityNotFoundException;
+
+    String verifyToken(String authorizationHeader);
 }

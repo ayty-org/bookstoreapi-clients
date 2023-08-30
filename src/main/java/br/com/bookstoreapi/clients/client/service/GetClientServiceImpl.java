@@ -21,7 +21,7 @@ public class GetClientServiceImpl implements GetClientService{
     }
 
     @Override
-    public Boolean existByEmailAndPasswrd(String email, String password) throws EntityNotFoundException {
+    public Boolean existByEmailAndPasswrd(String email, String password){
         return clientRepository.existsByEmailAndPassword(email, password);
     }
 }
