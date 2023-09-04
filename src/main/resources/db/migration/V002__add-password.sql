@@ -1,1 +1,1 @@
-ALTER TABLE client ADD COLUMN password VARCHAR;
+ALTER TABLE clients ADD COLUMN password VARCHAR;

@@ -19,6 +19,6 @@ public class LoginController {
 
     @PostMapping("auth/login")
     public ResponseEntity<LoginResponseDTO> auth(@RequestBody LoginRequestDTO client) throws EntityNotFoundException {
-        return new ResponseEntity<LoginResponseDTO>(serviceJWT.auth(client), HttpStatus.OK);
+        return new ResponseEntity<>(serviceJWT.auth(client), HttpStatus.OK);
     }
 }

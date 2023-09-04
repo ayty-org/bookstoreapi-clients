@@ -40,7 +40,7 @@ class UpdateClientServiceImplTest {
         when(repository.save(any())).thenReturn(ClientBuilder.clientJenipapo1());
 
         Client client = updateClientService.update(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"),
-                ClientBuilder.clientJenipapo1());
+                ClientBuilder.clientJenipapo1(), null);
 
         assertThat(client.getId(), is(1L));
         assertThat(client.getUuid().toString(), is("12d51c0a-a843-46fc-8447-5fda559ec69b"));
@@ -59,7 +59,7 @@ class UpdateClientServiceImplTest {
                 .thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class,
-                ()-> updateClientService.update(null, ClientBuilder.clientJenipapo1()));
+                ()-> updateClientService.update(null, ClientBuilder.clientJenipapo1(), null));
         verify(repository, never()).save(any());
     }
 }

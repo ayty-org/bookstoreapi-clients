@@ -37,7 +37,7 @@ public class GetClientServiceImplTest {
         when(clientRepository.findByUuid(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b")))
                 .thenReturn(Optional.of(ClientBuilder.clientJenipapo1()));
 
-        Client client = getClientService.getByUuid(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"));
+        Client client = getClientService.getByUuid(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"), null);
         assertThat(client.getId(), is(1L));
         assertThat(client.getUuid().toString(), is("12d51c0a-a843-46fc-8447-5fda559ec69b"));
         assertThat(client.getName(), is("Jenipapo"));
@@ -51,6 +51,6 @@ public class GetClientServiceImplTest {
     void testGetByIdWhenIdDontExist(){
        when(clientRepository.findByUuid(UUID.fromString("df670f4b-5d4d-4f70-ae78-f2ddc9fa1f14")))
                .thenReturn(Optional.empty());
-       assertThrows(EntityNotFoundException.class, ()-> getClientService.getByUuid(null));
+       assertThrows(EntityNotFoundException.class, ()-> getClientService.getByUuid(null, null));
    }
 }

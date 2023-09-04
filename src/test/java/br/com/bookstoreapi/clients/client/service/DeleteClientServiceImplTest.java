@@ -38,7 +38,7 @@ public class DeleteClientServiceImplTest {
         when(clientRepository.findByUuid(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"))
         ).thenReturn(Optional.of(ClientBuilder.clientJenipapo1()));
 
-        deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"));
+        deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"), null);
         verify(clientRepository, times(1)).delete(any());
     }
 
@@ -47,7 +47,7 @@ public class DeleteClientServiceImplTest {
         when(clientRepository.findByUuid(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b")))
                 .thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class,
-                ()-> deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b")));
+                ()-> deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"), null));
 
         verify(clientRepository, never()).delete(any());
     }
@@ -58,7 +58,7 @@ public class DeleteClientServiceImplTest {
         ).thenReturn(Optional.of(ClientBuilder.clientJenipapo1()));
         when(purchaseRepository.existsByClientUuid(any())).thenReturn(true);
         assertThrows(DeleteException.class,
-                ()-> deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b")));
+                ()-> deleteClientService.delete(UUID.fromString("12d51c0a-a843-46fc-8447-5fda559ec69b"), null));
         verify(clientRepository, never()).delete(any());
     }
 }

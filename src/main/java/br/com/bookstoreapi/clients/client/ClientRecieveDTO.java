@@ -31,6 +31,7 @@ public class ClientRecieveDTO {
     @Size(min = 4, max = 15, message = "gender must be between 4 and 15 characters")
     @NotBlank(message = "gender cannot be null or void")
     private String gender;
+    private String password;
 
     public static Client to(ClientRecieveDTO client){
         return Client.builder()
@@ -39,6 +40,7 @@ public class ClientRecieveDTO {
                 .telephone(client.getTelephone())
                 .email(client.getEmail())
                 .gender(client.getGender())
+                .password(client.getPassword())
                 .build();
     }
 }

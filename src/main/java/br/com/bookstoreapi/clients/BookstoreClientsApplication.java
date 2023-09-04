@@ -17,14 +17,14 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 public class BookstoreClientsApplication {
 
-
 	@Bean
 	public FilterRegistrationBean<FilterJWT> filterJwt() {
 		FilterRegistrationBean<FilterJWT> filterRB = new FilterRegistrationBean<FilterJWT>();
 		filterRB.setFilter(new FilterJWT());
-		filterRB.addUrlPatterns("/v1/clients/*");
+		filterRB.addUrlPatterns("/v1/clients/private/*");
 		return filterRB;
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreClientsApplication.class, args);
 	}
